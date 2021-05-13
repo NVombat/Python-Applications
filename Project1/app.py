@@ -1,3 +1,4 @@
+#Dictionary Application
 #Import libraries
 from difflib import get_close_matches
 import sqlite3 as s

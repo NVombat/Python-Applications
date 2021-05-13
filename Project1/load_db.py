@@ -1,3 +1,5 @@
+#Loads all words from JSON FILE INTO DICTIONARY TABLE IN LOCAL DB
+#Because loading the json file everytime the program is run is inefficient
 #Import libraries
 import sqlite3 as s
 import json
