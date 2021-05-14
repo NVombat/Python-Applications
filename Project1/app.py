@@ -5,7 +5,7 @@ import sqlite3 as s
 import json
 
 #Path and Tablename for the database
-path = "app.db"
+path = "dict.db"
 tablename = "dictionary"
 
 #Function to convert a list of tuples (of all the words) to a list of strings
@@ -122,12 +122,17 @@ word = input("Enter word: ")
 #Find the meaning(s) of that particular word
 meanings = find_meaning(word)
 #print("MEANINGS:", meanings)
+#print("Meanings:", meanings[0][1].split("~~"))
 
 #If the returned value is a list and has content (is not empty)
 if isinstance(meanings, list) and meanings:
-    #Print each meaning
-    for meaning in meanings:
-        print(meaning[1])
+    #Print each meaning after splitting the meanings list on the "~~" delimiter
+    for meaning in meanings[0][1].split("~~"):
+        #The last item in the list is "" -> Thus break and dont print that
+        if meaning=='':
+            break
+        #Print meaning
+        print(meaning)
 #Else print whatever error message is necessary
 else:
     print(meanings)
