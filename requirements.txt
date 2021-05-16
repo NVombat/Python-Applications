@@ -1,0 +1,11 @@
+pandas  #library for data analysis
+numpy  #library with a large collection of high-level mathematical functions to operate on large multi-dimensional arrays and matrices
+opencv-python  #library of programming functions mainly aimed at real-time computer vision.
+geopy  #python client for several popular geocoding web services
+folium  #library used for visualizing geospatial data
+
+justpy==0.1.5  #library for building web apps and data visualization
+pytz==2021.1  #library for datetime calculations between timezones
+matplotlib==3.3.4  #library for quick data visualization and plotting
+pandas==1.2.2  #library for data analysis
+jupyter  #library that enables a reach interactive Python shell
