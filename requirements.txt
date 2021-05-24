@@ -9,3 +9,6 @@ pytz==2021.1  #library for datetime calculations between timezones
 matplotlib==3.3.4  #library for quick data visualization and plotting
 pandas==1.2.2  #library for data analysis
 jupyter  #library that enables a reach interactive Python shell
+
+virtualenv #to set up virtual environment when deploying app
+#python -m venv virtual -> virtual/bin/pip3 install ...
