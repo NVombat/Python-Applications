@@ -1,3 +1,4 @@
+#Requirements and Instructions
 pandas  #library for data analysis
 numpy  #library with a large collection of high-level mathematical functions to operate on large multi-dimensional arrays and matrices
 opencv-python  #library of programming functions mainly aimed at real-time computer vision.
@@ -11,4 +12,41 @@ pandas==1.2.2  #library for data analysis
 jupyter  #library that enables a reach interactive Python shell
 
 virtualenv #to set up virtual environment when deploying app
+gunicorn #to run app on heroku
 #python -m venv virtual -> virtual/bin/pip3 install ...
+
+#To DEPLOY APP WITHOUT DATABASE on HEROKU:
+#create a virtual environment (so that only the libraries we need are being used)
+#pip freeze -> to check which libraries we are using
+#Create requirement.txt -> contains all the requirements -> "pip freeze > requirement.txt"
+#Create Procfile -> file has no extensions -> put "web: gunicorn webapp:app" in Procfile
+#Create runtime.txt -> "python-3.9.5" -> https://devcenter.heroku.com/articles/python-runtimes#supported-python-runtimes
+#"heroku login" -> Enter email ID and pwd
+#"heroku create appname"
+#"git init"
+#"git config --global user.email "myemail@hotmail.com""
+#"git config --global user.name "whateverusername""
+#"git add ."
+#"git commit -m "commit message""
+#"heroku git:remote --app appname"
+#"git push heroku master"
+#"heroku open"
+#If changes are made -> Open Terminal
+#"heroku login" -> Enter correct credentials
+#"heroku info" -> gives info on which app you are connected to
+#"git add ."
+#"git commit -m "commit message""
+#"git push heroku master"
+#"heroku open"
+
+#Install postgreSQL -> https://www.postgresql.org/download/
+#user - postgres
+#pwd - postgres123
+#port - 5432
+
+psycopg2 #Library to access postgreSQL database
+mysql-connector #Library to connect to SQL databases
+pyinstaller #Library to make an executable file
+#pyinstaller --onefile --windowed filename.py -> Creates an executable file from a normal python file
+
+kivy #library to make apps
