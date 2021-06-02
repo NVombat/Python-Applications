@@ -13,9 +13,11 @@ jupyter  #library that enables a reach interactive Python shell
 
 virtualenv #to set up virtual environment when deploying app
 gunicorn #to run app on heroku
-#python -m venv virtual -> virtual/bin/pip3 install ...
+#TO CREATE A VIRTUAL ENV #python -m virtualenv virtual -> virtual/bin/pip3 install ...
 
 #To DEPLOY APP WITHOUT DATABASE on HEROKU:
+#Create a heroku account
+#Install heroku-toolbelt
 #create a virtual environment (so that only the libraries we need are being used)
 #pip freeze -> to check which libraries we are using
 #Create requirement.txt -> contains all the requirements -> "pip freeze > requirement.txt"
@@ -50,3 +52,29 @@ pyinstaller #Library to make an executable file
 #pyinstaller --onefile --windowed filename.py -> Creates an executable file from a normal python file
 
 kivy #library to make apps
+bokeh #library for data visualisation
+xlrd #library to load excel files using pandas
+
+#To DEPLOY APP WITH DATABASE on HEROKU:
+#create a virtual environment (so that only the libraries we need are being used)
+#"heroku login" -> Enter email ID and pwd
+#"heroku create appname"
+#"heroku addons:create heroku-postgresql:hobby-dev --app appname"
+#"heroku config --app appname" -> use 'result' in webapp.py -> app.config['SQLALCHEMY_DATABASE_URI'] = 'result?sslmode=require'
+#pip freeze -> to check which libraries we are using
+#Create requirement.txt -> contains all the requirements -> "pip freeze > requirement.txt"
+#Create Procfile -> file has no extensions -> put "web: gunicorn webapp:app" in Procfile
+#Create runtime.txt -> "python-3.9.5" -> https://devcenter.heroku.com/articles/python-runtimes#supported-python-runtimes
+#"git init"
+#"git config --global user.email "myemail@hotmail.com""
+#"git config --global user.name "whateverusername""
+#"git add ."
+#"git commit -m "commit message""
+#"heroku git:remote --app appname"
+#"git push heroku master"
+#"heroku open"
+#"heroku run python" -> To run a python session from heroku (To run the postgre sql on heroku server)
+#"from app import db"
+#"db.create_all()" -> To run and create the database
+#Add psql to environment variables
+#"heroku pg:psql --app appname"
