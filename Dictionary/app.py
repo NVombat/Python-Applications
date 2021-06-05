@@ -4,9 +4,11 @@ from difflib import get_close_matches
 import sqlite3 as s
 import json
 
+
 #Path and Tablename for the database
 path = "dict.db"
 tablename = "dictionary"
+
 
 #Function to convert a list of tuples (of all the words) to a list of strings
 def create_list_of_all_words():
@@ -81,15 +83,17 @@ def select_similar(word : str):
 
 #Function to find meaning of word
 def find_meaning(word : str):
+    #Store the original word in a variable
+    orig_word = word
     #Lower case for normal words
-    word = word.lower()
+    lword = word.lower()
     #Capitalisation for Proper Nouns EG Texas, Delhi
     pnoun = word.title()
     #Upper case for acronyms EG API, USA, NASA
     acro = word.upper()
 
     #We query each type of word format in the database
-    res1 = query_word(word)
+    res1 = query_word(lword)
     res2 = query_word(pnoun)
     res3 = query_word(acro)
 
@@ -108,9 +112,10 @@ def find_meaning(word : str):
     else:
         print("Wrong Word")
         #We now check for a similar word in the database
-        sim_res = select_similar(word)
+        sim_res = select_similar(orig_word)
         #This will either return a list of word and meanings or an error message 
         return sim_res
+
 
 #List to store all the words of the dictionary as strings
 allwords = create_list_of_all_words()
