@@ -1,15 +1,12 @@
-# PythonApplications
-
-> Python Applications
+# Python Applications
 
 ---
 
 ### Table of Contents
-Click below to check out the project details.
 
-- [Data Analysis Using Pandas & JustPy](#p1)
-- [Dictionary CLI App](#p2)
-- [Population & Volcano WebMap](#p3)
+#### Data Analysis Using Pandas & JustPy
+#### Dictionary CLI App
+#### Population & Volcano WebMap
 
 ---
 
@@ -41,5 +38,3 @@ Click below to check out the project details.
 [Back To The Top](#PythonApplications)
 
 ---
-
-[Back To The Top](#PythonApplications)
