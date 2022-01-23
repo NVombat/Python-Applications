@@ -14,7 +14,7 @@ Builder.load_file("design.kv")
 class LoginScreen(Screen):
     def sign_up(self):
         self.manager.current = "sign_up_screen"
-    
+
     def login(self, uname, pwd):
         with open("/home/nvombat/Desktop/Python-Projects/FeelGood App/users.json") as jfile:
             users = json.load(jfile)
@@ -60,10 +60,8 @@ class LoginScreenSuccess(Screen):
 
     def get_quote(self, feel):
         feel = feel.lower()
-        #print(feel)
         available_feelings = glob.glob("/home/nvombat/Desktop/Python-Projects/FeelGood App/quotes/*.txt")
         available_feelings = [Path(filename).stem for filename in available_feelings]
-        #print(available_feelings)
 
         if feel in available_feelings:
             with open(f"/home/nvombat/Desktop/Python-Projects/FeelGood App/quotes/{feel}.txt") as file:
