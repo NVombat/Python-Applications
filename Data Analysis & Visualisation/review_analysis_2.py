@@ -4,27 +4,17 @@ from pytz import utc
 import justpy as jp
 import pandas
 
-#Read CSV file containing all reviews and set Timestamp column values to be of date type
 df = pandas.read_csv("reviews.csv", parse_dates=['Timestamp'])
 
-#Create a column for month (%Y makes sure that same months in different years dont get considered the same)
-df["Month"] = df["Timestamp"].dt.strftime("%Y-%m") #(%m is for month value)
-#Group data by month and course name thus resulting dataframe will have 2 index columns when we unstack() the data
-#We then find the mean of the ratings of each course by month
+df["Month"] = df["Timestamp"].dt.strftime("%Y-%m")
 crs_mon_avg = df.groupby(["Month", "Course Name"])["Rating"].mean().unstack()
 
-#Create a new column for the days of the Week which are taken from the timestamp datetime object
-#We split the timestamp using strftime to get the Weekday using %A
 df["Weekday"] = df["Timestamp"].dt.strftime("%A")
-#Create a new column for the day numbers for each day which are taken from the timestamp datetime object
-#We split the timestamp using strftime to get the day number using %w
 df["DayNumber"] = df["Timestamp"].dt.strftime("%w")
-#We then group all the data by the weekday and daynumber columns and find the mean
+
 wkdy_avg = df.groupby(["Weekday", "DayNumber"]).mean()
-#We also sort the data by DayNumber
 wkdy_avg = wkdy_avg.sort_values("DayNumber")
 
-#Groups data by the course name and find the number of ratings per course
 crs_rat_cnt = df.groupby(["Course Name"])["Rating"].count()
 
 #Spline chart for average rating per course per month
@@ -295,43 +285,31 @@ def app():
     #Creates a webpage and loads it in dark mode
     wp = jp.QuasarPage(dark=True)
 
-    #Heading and Sub-Heading Tags
     h1 = jp.QDiv(a=wp, text="Analysis Of Course Reviews Pt2", classes="text-h3 text-weight-bolder text-center q-pa-md")
-    h2 = jp.QDiv(a=wp, text="These graphs plot the Ratings of courses across certain timelines and intervals", 
+    h2 = jp.QDiv(a=wp, text="These graphs plot the Ratings of courses across certain timelines and intervals",
     classes="text-h5 text-weight-bolder text-center q-pa-md")
 
     #Highchart (Area Spline) for average ratings by month by course
     hc1 = jp.HighCharts(a=wp, options=spline_chart_crs_month_def)
-    #Access the dictionary that contains chart data using hc.options
-    hc1.options.xAxis.categories = list(crs_mon_avg.index) #Sets the X-Axis value to the index of the crs_mon_avg dataframe(month)
-    #n1 loops through the course name column and d1 loops through the ratings for that particular course
+    hc1.options.xAxis.categories = list(crs_mon_avg.index)
     hc1_data = [{"name": n1, "data":[d1 for d1 in crs_mon_avg[n1]]} for n1 in crs_mon_avg.columns]
-    #Set the value of series of the chart to the data using hc1_data
     hc1.options.series = hc1_data
 
     #Highchart (Series) for average ratings by month by course
     hc2 = jp.HighCharts(a=wp, options=stream_chart_crs_month_def)
-    #Access the dictionary that contains chart data using hc.options
-    hc2.options.xAxis.categories = list(crs_mon_avg.index)#Sets the X-Axis value to the index of the crs_mon_avg dataframe(month)
-    #Set the value of series of the chart to the data using hc1_data
+    hc2.options.xAxis.categories = list(crs_mon_avg.index)
     hc2.options.series = hc1_data
 
     #Highchart (Spline) for average ratings by weekday to see when everyone is most positive
     hc3 = jp.HighCharts(a=wp, options=spline_chart_pos_week_def)
-    #X-Axis is weekdays -> wkdy_avg has two indexes -> one for weekdays and the other for weeknumbers
-    hc3.options.xAxis.categories = list(wkdy_avg.index.get_level_values(0))#Sets X_Axis value to index containing weekdays
-    #We then plot the average rating on each day against the X-Axis
+    hc3.options.xAxis.categories = list(wkdy_avg.index.get_level_values(0))
     hc3.options.series[0].data = list(wkdy_avg["Rating"])
 
     #Highchart (PieChart) for number of ratings per course
     hc4 = jp.HighCharts(a=wp, options=pie_chart_crs_rating_cnt_def)
-    #Extracts the course name and the ratings per course
-    hc4_data = [{"name": a, "y": b} for a,b in zip(crs_rat_cnt.index, crs_rat_cnt)] #Index of dataframe has course names
-    #Assigns that data to the PieChart
+    hc4_data = [{"name": a, "y": b} for a,b in zip(crs_rat_cnt.index, crs_rat_cnt)]
     hc4.options.series[0].data = hc4_data
 
-    #Returns the webpage
     return wp
 
-#Expects a function which returns a webpage and runs it to load webpage on localhost
 jp.justpy(app)
