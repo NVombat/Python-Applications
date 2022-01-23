@@ -8,14 +8,16 @@
     <title> Data Collector App </title>
 </head>
 <body>
-    <div class="container"> 
+    <div class="container">
         <h1> Collecting Height </h1>
         <h3> Please Fill the Entries to Get Population Statistics on Height </h3>
-        <form action="{{url_for('success')}}" method="POST">
-            <input title="Your email will be safe with us" placeholder="Enter your email address" type="email" name="email_name" required> <br>
-            <input title="Your data will be safe with us" placeholder="Enter your height in cm" type="number" min="50" max="300" name="height_name" required> <br>
+        <form action="{{url_for('success_file')}}" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file"><br>
             <button type="submit"> Submit </button>
         </form>
+        {% if btn %}
+            {% include btn %}
+        {% endif %}
     </div>
 </body>
 </html>
